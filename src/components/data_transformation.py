@@ -14,7 +14,7 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    preprocesser_ob_file_path = os.path.join('artifacts', 'preprocesser.pkl')
+    preprocessor_ob_file_path = os.path.join('artifacts', 'preprocessor.pkl')
 
 
 class DataTransformation:
@@ -56,7 +56,7 @@ class DataTransformation:
             logging.info(f'Numerical columns: {numerical_columns}')
             logging.info(f'Categorical columns: {categorical_columns}')
 
-            preprocesser = ColumnTransformer(
+            preprocessor = ColumnTransformer(
                 [
                     # pipeline name, pipeline obj, column name that will be transformed
                     ('num_pipeline', num_pipeline, numerical_columns),
@@ -64,7 +64,7 @@ class DataTransformation:
                 ]
             )
 
-            return preprocesser
+            return preprocessor
 
         except Exception as e:
             raise CustomException(e, sys)
@@ -104,7 +104,7 @@ class DataTransformation:
             logging.info(f'Saved preprocessing object')
 
             save_object (
-                file_path = self.data_transformation_config.preprocesser_ob_file_path,
+                file_path = self.data_transformation_config.preprocessor_ob_file_path,
                 obj = preprocessing_obj
 
             )
@@ -112,7 +112,7 @@ class DataTransformation:
             return (
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocesser_ob_file_path
+                self.data_transformation_config.preprocessor_ob_file_path
             )
     
         except Exception as e:
